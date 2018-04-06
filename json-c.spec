@@ -6,7 +6,7 @@
 
 Summary:	JSON implementation in C
 Name:		json-c
-Version:	0.13
+Version:	0.13.1
 Release:	1
 Group:		System/Libraries
 License:	MIT
