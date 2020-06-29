@@ -1,0 +1,51 @@
+From 60494684a103f218503deb985631eae6331c31ec Mon Sep 17 00:00:00 2001
+From: Micah Snyder <micasnyd@cisco.com>
+Date: Sun, 14 Jun 2020 12:01:48 -0400
+Subject: [PATCH] Issue #508: `-fPIC` to link libjson-c.a with libs
+
+json-c has symbol collisions with other popular C JSON libraries.
+To prevent random crashes in downstream applications that may use a
+library which depends on json-c, the solution is to statically link
+libjson-c.a into those libraries.
+
+`-fPIC`/`-fPIE` is required when building a `.a` so it can be linked
+into a `.so`.
+---
+ CMakeLists.txt | 8 ++++++++
+ README.md      | 1 +
+ 2 files changed, 9 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b52255f..bfd9c3d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -110,6 +110,14 @@ if (MSVC)
+     list(APPEND CMAKE_REQUIRED_FLAGS /wd4996)
+ endif()
+ 
++if (NOT DISABLE_STATIC_FPIC)
++    # Use '-fPIC'/'-fPIE' option.
++    # This will allow other libraries to statically link in libjson-c.a
++    # which in turn prevents crashes in downstream apps that may use
++    # a different JSON library with identical symbol names.
++    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
++endif()
++
+ check_include_file("fcntl.h"        HAVE_FCNTL_H)
+ check_include_file("inttypes.h"     HAVE_INTTYPES_H)
+ check_include_file(stdarg.h         HAVE_STDARG_H)
+diff --git a/README.md b/README.md
+index 5cabd9d..3757a40 100644
+--- a/README.md
++++ b/README.md
+@@ -99,6 +99,7 @@ CMAKE_INSTALL_PREFIX         | String | The install location.
+ CMAKE_BUILD_TYPE             | String | Defaults to "debug".
+ BUILD_SHARED_LIBS            | Bool   | The default build generates a dynamic (dll/so) library.  Set this to OFF to create a static library only.
+ BUILD_STATIC_LIBS            | Bool   | The default build generates a static (lib/a) library.  Set this to OFF to create a shared library only.
++DISABLE_STATIC_FPIC          | Bool   | The default builds position independent code.  Set this to OFF to create a shared library only.
+ DISABLE_BSYMBOLIC            | Bool   | Disable use of -Bsymbolic-functions.
+ DISABLE_THREAD_LOCAL_STORAGE | Bool   | Disable use of Thread-Local Storage (HAVE___THREAD).
+ DISABLE_WERROR               | Bool   | Disable use of -Werror.
+-- 
+2.27.0
+
