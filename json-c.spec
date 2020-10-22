@@ -5,12 +5,6 @@
 %bcond_with compat32
 %endif
 
-# As of 0.14:
-# json_object.c:1338:68: error: dereferencing type-punned pointer might break strict-aliasing rules [-Werror=strict-aliasing]
-# json_object.c:1408:72: error: dereferencing type-punned pointer might break strict-aliasing rules [-Werror=strict-aliasing]
-# json_object.c:1417:72: error: dereferencing type-punned pointer might break strict-aliasing rules [-Werror=strict-aliasing]
-%global optflags %{optflags} -fno-strict-aliasing
-
 %define oldmaj 0
 %define major 5
 %define libname %mklibname %{name} %{major}
@@ -21,8 +15,8 @@
 
 Summary:	JSON implementation in C
 Name:		json-c
-Version:	0.14
-Release:	2
+Version:	0.15
+Release:	1
 Group:		System/Libraries
 License:	MIT
 Url:		https://github.com/json-c/json-c/wiki
