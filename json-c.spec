@@ -9,6 +9,7 @@
 # json_object.c:1338:68: error: dereferencing type-punned pointer might break strict-aliasing rules [-Werror=strict-aliasing]
 # json_object.c:1408:72: error: dereferencing type-punned pointer might break strict-aliasing rules [-Werror=strict-aliasing]
 # json_object.c:1417:72: error: dereferencing type-punned pointer might break strict-aliasing rules [-Werror=strict-aliasing]
+# https://github.com/json-c/json-c/issues/676
 %global optflags %{optflags} -fno-strict-aliasing
  
 %define oldmaj 0
