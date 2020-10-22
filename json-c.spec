@@ -21,8 +21,6 @@ Group:		System/Libraries
 License:	MIT
 Url:		https://github.com/json-c/json-c/wiki
 Source0:	https://s3.amazonaws.com/json-c_releases/releases/%{name}-%{version}.tar.gz
-# (tpg) https://github.com/json-c/json-c/issues/508
-Patch0:		0000-Issue-508-fPIC-to-link-libjson-c.a-with-libs.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 
