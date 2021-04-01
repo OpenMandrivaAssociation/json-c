@@ -1,3 +1,6 @@
+# (tpg) reduce bloat by excluding cmake requires on devel packages
+%global __requires_exclude ^cmake.*$
+
 # fontconfig uses json-c, wine uses fontconfig
 %ifarch %{x86_64}
 %bcond_without compat32
@@ -23,7 +26,7 @@
 Summary:	JSON implementation in C
 Name:		json-c
 Version:	0.15
-Release:	1
+Release:	2
 Group:		System/Libraries
 License:	MIT
 Url:		https://github.com/json-c/json-c/wiki
