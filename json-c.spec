@@ -26,7 +26,7 @@
 Summary:	JSON implementation in C
 Name:		json-c
 Version:	0.15
-Release:	2
+Release:	3
 Group:		System/Libraries
 License:	MIT
 Url:		https://github.com/json-c/json-c/wiki
@@ -94,6 +94,7 @@ export CONFIGURE_TOP="$(pwd)"
 
 %if %{with compat32}
 %cmake32 \
+	-DDISABLE_BSYMBOLIC:BOOL=OFF \
 	-DENABLE_RDRAND:BOOL=ON \
 	-DENABLE_THREADING:BOOL=ON \
 	-G Ninja
@@ -101,6 +102,7 @@ cd ..
 %endif
 
 %cmake \
+	-DDISABLE_BSYMBOLIC:BOOL=OFF \
 	-DENABLE_RDRAND:BOOL=ON \
 	-DENABLE_THREADING:BOOL=ON \
 	-G Ninja
