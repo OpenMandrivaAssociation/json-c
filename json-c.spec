@@ -25,8 +25,8 @@
 
 Summary:	JSON implementation in C
 Name:		json-c
-Version:	0.15
-Release:	3
+Version:	0.16
+Release:	1
 Group:		System/Libraries
 License:	MIT
 Url:		https://github.com/json-c/json-c/wiki
@@ -67,6 +67,8 @@ representation of JSON objects.
 %package -n %{lib32name}
 Summary:	JSON implementation in C (32-bit)
 Group:		System/Libraries
+BuildRequires:	libc6
+Requires:	libc6
 
 %description -n %{lib32name}
 JSON-C implements a reference counting object model that allows you to
