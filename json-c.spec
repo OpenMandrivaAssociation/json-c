@@ -26,11 +26,12 @@
 Summary:	JSON implementation in C
 Name:		json-c
 Version:	0.16
-Release:	2
+Release:	3
 Group:		System/Libraries
 License:	MIT
 Url:		https://github.com/json-c/json-c/wiki
 Source0:	https://s3.amazonaws.com/json-c_releases/releases/%{name}-%{version}.tar.gz
+Patch0:		json-c-0.16-clang16.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 

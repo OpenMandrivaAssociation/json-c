@@ -1,0 +1,12 @@
+diff -up json-c-0.16/json_util.c.omv~ json-c-0.16/json_util.c
+--- json-c-0.16/json_util.c.omv~	2023-06-02 10:56:35.324510354 +0200
++++ json-c-0.16/json_util.c	2023-06-02 10:56:41.174621381 +0200
+@@ -60,7 +60,7 @@ static int _json_object_to_fd(int fd, st
+ 
+ static char _last_err[256] = "";
+ 
+-const char *json_util_get_last_err()
++const char *json_util_get_last_err(void)
+ {
+ 	if (_last_err[0] == '\0')
+ 		return NULL;
