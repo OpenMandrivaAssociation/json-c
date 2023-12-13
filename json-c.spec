@@ -14,24 +14,26 @@
 # json_object.c:1417:72: error: dereferencing type-punned pointer might break strict-aliasing rules [-Werror=strict-aliasing]
 # https://github.com/json-c/json-c/issues/676
 %global optflags %{optflags} -fno-strict-aliasing
+%global build_ldflags %{build_ldflags} -Wl,--undefined-version
  
 %define oldmaj 0
 %define major 5
+%define oldlibname %mklibname %{name}
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
-%define lib32name %mklib32name %{name} %{major}
+%define oldlib32name %mklib32name %{name} 5
+%define lib32name %mklib32name %{name}
 %define dev32name %mklib32name %{name} -d
 %bcond_with crosscompile
 
 Summary:	JSON implementation in C
 Name:		json-c
-Version:	0.16
-Release:	3
+Version:	0.17
+Release:	1
 Group:		System/Libraries
 License:	MIT
 Url:		https://github.com/json-c/json-c/wiki
 Source0:	https://s3.amazonaws.com/json-c_releases/releases/%{name}-%{version}.tar.gz
-Patch0:		json-c-0.16-clang16.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 
@@ -44,6 +46,7 @@ representation of JSON objects.
 %package -n %{libname}
 Summary:	JSON implementation in C
 Group:		System/Libraries
+%rename %{oldlibname}
 
 %description -n %{libname}
 JSON-C implements a reference counting object model that allows you to
@@ -70,6 +73,7 @@ Summary:	JSON implementation in C (32-bit)
 Group:		System/Libraries
 BuildRequires:	libc6
 Requires:	libc6
+%rename %{oldlib32name}
 
 %description -n %{lib32name}
 JSON-C implements a reference counting object model that allows you to
